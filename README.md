@@ -1,6 +1,6 @@
 ## 시현 영상
 
-👉 [보러가기]()
+👉 [보러가기](https://www.youtube.com/watch?v=pn_MEgDiRi4)
 <br />
 
 ## ☀️ PROJECT MARS란?
@@ -114,3 +114,82 @@ Sprint 목표와 전반적인 업무 진행을 파악하기 위한 Tool로 Trell
 <br />
 
 ## ☀️ 구현 기능
+
+💁🏻 Sign-in
+
+- JWT Token을 이용한 Sign-in 방식입니다.
+- 지정 서식 아이디인지 유효성 검사를 합니다.
+- 패스워드가 9자 이상인지 유효성 검사를 합니다.
+- 지정 서식 아이디이고, 비밀번호가 9자 이상이어야 Sign-in 버튼이 활성화 됩니다.
+- 패스워드의 시각적 암호화를 풀 수 있도록 Eye 기능을 제공합니다.
+  - 이 아이콘을 클릭하면 내가 어떤 문자를 입력했는지 확인할 수 있습니다.
+- 다양한 HTTP 요청 실패에 대한 처리를 했습니다.
+  - 서버와 연결이 끊기거나 유저가 제출한 서식이 틀렸을 시 Toast 메시지가 실행됩니다.
+
+💁🏻 Navigation
+
+- Top Navigation
+  - 유저가 접속한 페이지의 경로를 알 수 있도록 구성했습니다.
+  - 유저가 현재 접속한 페이지의 경로를 표시했습니다.
+  - Equipment Controller라면 알람 메세지에 대해 API 요청을 합니다.
+  - Equipment Controller가 알람 아이콘을 클릭하면 담당 Device의 이상징후 메세지를 확인 하고 삭제할 수 있습니다.
+  - 로그아웃 버튼 클릭 시 JWT Token 파괴 및 Sign-in으로 리다이렉트 합니다
+- Side Navigation
+  - 현재 유저가 접속해 있는 페이지를 시각적으로 표시 했습니다. => NavLink의 Active기능
+  - Side Navigation의 메뉴를 확대하거나 축소 할 수 있는 토글 기능이 제공됩니다.
+  - Equipment Controller는 Admin Tab을 사용하거나 볼 수 있지만 Location Controller이면 Admin Tab을 볼 수 없도록 설정했습니다.
+
+💁🏻 Search(List)
+
+- 공통
+  - 필터를 통해 원하는 정보를 검색할 수 있습니다.
+  - Reset을 클릭하면 검색조건이 초기화 됩니다.
+  - Equipment Controller이면 Delete 기능을 이용할 수 있습니다. 이 기능은 등록된 Equipment, Deivce를 삭제할 수 있습니다.
+  - Location Controller이면 Delete 버튼이 보이지 않도록 설정했습니다.
+  - 각 Equipment나 Device를 클릭하면 해당 상세 페이지로 리다이렉트 합니다.
+  - 페이지네이션 기능이 적용됩니다.
+- EquipmentList
+  - Matching된 Device가 아니라면 Battery Status, Matched Status, Device Status, Power를 조회할 수 없습니다.
+- Device List
+  - Matching된 Equipment가 아니라면 Matched Status, Matched Equipment Type, Matched Equipment를 조회할 수 없습니다.
+
+💁🏻 Mapping
+
+- Equipment와 Device를 등록 할 수 있습니다.
+- 등록된 Equipment와 Device를 Matching 할 수 있습니다.
+
+💁🏻 History(List)
+
+- 지금까지 이행된 수리, 교체, 설치에 대한 이력을 모두 조회할 수 있습니다.
+
+## 이슈 공유
+
+1. 렌더링 관련 이슈
+
+- 이슈 내용
+  - Delete를 하거나 Matching했을 때 렌더링이 안되는 현상입니다.
+- 원인
+  - React는 상태가 변하면 렌더링이 일어납니다. 따라서 Delete를 하면 렌더링이 될 것이라고 생각했지만, 생각의 오류였습니다. 클라이언트의 데이터를 수정한 것이 아니라 서버의 데이터를 수정한 것이기 때문에 렌더링이 안 일어나는 것이 맞습니다.
+- 해결
+  - 먼저 서버의 데이터를 수정하도록 요청을 하고, 수정된 데이터를 다시 요청했습니다.
+
+2. 불필요한 렌더링 이슈
+
+- 이슈 내용
+  - 불필요한 렌더링으로 사이트의 성능이 좋지 않습니다.
+- 원인
+  - mobx 활용 미숙으로 observer의 대상이 된 컴포넌트들이 모두 렌더링 됩니다.
+- 해결
+  - 아직 해결은 하지 못했으나 공식 문서를 읽고 리팩토링하며, 상태를 변경해야하는 값과 필요하지 않은 값을 분리해야할 것으로 보입니다.
+
+3. 비슷한 디자인의 List 페이지 재사용성 이슈
+
+- 이슈 내용
+  - 무려 4개의 페이지가 디자인이 비슷했지만, 제한된 리소스에 의해 재사용성이 사장됬습니다.
+- 원인
+  - 제한된 리소스(개발 기간)
+  - 페이지마다 API의 Response가 다른데 어떻게 적용할 수 있을지 잘 모르겠습니다.
+- 해결
+  - 재사용 컴포넌트로 만들지 못하고, 조건문과 useLocation을 활용해 한 컴포넌트에서 3개의 페이지를 담당하도록 했습니다. 그 결과로 가독성이 정말 안좋으며, 디자인의 수정이 일어난다면 해당 부분을 찾아 모두 수정해야하는 리소스의 낭비로 이어졌습니다.
+  - 현재 List 컴포넌트는 List페이지 2개와 History 페이지를 모두 담아내고 있습니다.
+  - 재사용할 수 있는 여지는 없는지 찾아보아야할 것입니다.
