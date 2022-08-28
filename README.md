@@ -5,6 +5,7 @@
 #### 🎥 시현 영상
 
 👉 [보러가기](https://www.youtube.com/watch?v=pn_MEgDiRi4)
+<br />
 
 <div align="center">
   <img src="https://img.shields.io/badge/react-18.2.0-61DAFB?style=flat-square&logo=react"/> <img src="https://img.shields.io/badge/TypeScript-4.7.4-3178C6?style=flat-square&logo=TypeScript"/> <img src="https://img.shields.io/badge/MobX-6.6.1-FF9955?style=flat-square&logo=MobX"/> <img src="https://img.shields.io/badge/ReactRouter-6.3.0-CA4245?style=flat-square&logo=ReactRouter"/> <img src="https://img.shields.io/badge/TailwindCSS-3.1.8-06B6D4?style=flat-square&logo=TailwindCSS"/>
@@ -50,6 +51,8 @@ cd Mars-monitoring-system
 npm install
 npm run dev
 ```
+
+- [백엔드 github 링크](https://github.com/jiminnote/Mars_project)
 
 ## 📖 [Wiki](https://github.com/conqueror-G/Mars-monitoring-system/wiki)
 
