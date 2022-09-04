@@ -56,5 +56,8 @@
     "url": "https://github.com/Musma/react-boilerplate/issues"
   },
   "homepage": "https://github.com/Musma/react-boilerplate#readme",
-  "description": ""
+  "description": "",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
