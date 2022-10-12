@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "experimentalDecorators": true,
+    "jsxImportSource": "@emotion/react",
     "paths": {
       "src/*": ["./src/*"]
     },

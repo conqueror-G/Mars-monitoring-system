@@ -1,12 +1,3 @@
 {
-  "extends": ["@musma"],
-  "env": {
-    "node": true,
-    "browser": true,
-    "commonjs": true,
-    "es6": true
-  },
-  "rules": {
-    "react/prop-types": "off"
-  }
+  "extends": "@musma/eslint-config-react"
 }
