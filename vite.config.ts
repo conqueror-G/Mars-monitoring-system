@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import path, { resolve } from 'path'
 
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
@@ -14,6 +14,6 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: [{ find: 'src', replacement: resolve('src') }],
+    alias: [{ find: 'src', replacement: path.resolve('src') }],
   },
 })
