@@ -1,3 +1,8 @@
 export const SignPage = () => {
-  return <div>Hello</div>
+  return (
+    <form>
+      <h1>Sign In</h1>
+      <input />
+    </form>
+  )
 }
