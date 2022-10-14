@@ -7,10 +7,37 @@ const wrapperCss = {
     display: 'flex',
     flexDirection: 'column',
   }),
+
+  button: css({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '100%',
+  }),
 }
 
 export const SignPage = () => {
   const theme = useTheme()
+
+  const buttonCss = {
+    forget: css({
+      display: 'block',
+      padding: 0,
+      border: 0,
+      marginBottom: '1.5rem',
+      backgroundColor: '#fff',
+      fontSize: '1.1rem',
+      fontWeight: 500,
+    }),
+
+    sign: css({
+      display: 'block',
+      width: '100%',
+      backgroundColor: theme.color.Primary,
+      fontWeight: 600,
+      fontSize: '1.25rem',
+      color: '#fff',
+    }),
+  }
 
   return (
     <form>
@@ -26,13 +53,13 @@ export const SignPage = () => {
           Password
         </label>
         <Input id="passwordId" type="password" css={{ marginBottom: '1.5rem' }} />
-
-        <Button
-          css={{ border: 0, fontSize: '1.25rem', fontWeight: 600, color: theme.color.Bg.bgDefault }}
-        >
-          Sign in
-        </Button>
       </div>
+
+      <div css={wrapperCss.button}>
+        <Button css={buttonCss.forget}>Forget Password?</Button>
+      </div>
+
+      <Button css={buttonCss.sign}>Sign in</Button>
     </form>
   )
 }

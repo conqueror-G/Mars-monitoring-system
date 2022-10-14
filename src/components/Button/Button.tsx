@@ -10,6 +10,7 @@ export const Button = (props: ButtonProps) => {
     padding: '0.8rem 0.5rem',
     borderRadius: '0.25rem',
     backgroundColor: theme.color.Primary,
+    cursor: 'pointer',
   })
 
   return <button css={buttonCss} {...props} />
