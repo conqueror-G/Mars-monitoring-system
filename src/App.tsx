@@ -4,7 +4,7 @@ import { AppContext, Context } from 'src/context'
 
 import { router } from './routes'
 import { MarsProvider } from 'src/theme'
-import Spinner from './components/Spinner'
+import Spinner from './components/spinner'
 
 function App() {
   return (

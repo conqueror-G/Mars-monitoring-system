@@ -1,4 +1,4 @@
 export * from './DefaultTheme'
-export * from './MarsProvider/MasProvide'
-export * from './NormalizeCSS/NormalizeCSS'
+export * from './marsProvider/MasProvide'
+export * from './normalizeCSS/NormalizeCSS'
 export * from './types'
