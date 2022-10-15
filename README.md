@@ -43,12 +43,15 @@
 
 ## 📺 프로젝트 시작하기
 
-> 배포가 되어있지 않아, mock-server로만 구현되어 있습니다.
+> 리팩토링 중입니다. branch develop
 
 ```
 git clone https://github.com/conqueror-G/Mars-monitoring-system.git
 cd Mars-monitoring-system
-npm install
+
+git checkout develop
+
+pnpm install
 npm run dev
 ```
 
