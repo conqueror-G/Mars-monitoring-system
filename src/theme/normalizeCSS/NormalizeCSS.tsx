@@ -1,6 +1,10 @@
 import { css, Global } from '@emotion/react'
 
 const normalize = css`
+  * {
+    box-sizing: border-box;
+  }
+
   html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
