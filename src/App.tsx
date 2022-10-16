@@ -3,13 +3,17 @@ import { RouterProvider } from 'react-router-dom'
 import { AppContext, Context } from 'src/context'
 
 import { router } from './routes'
+import { MarsProvider } from 'src/theme'
+import Spinner from './components/spinner'
 
 function App() {
   return (
-    <Suspense fallback={<div>loading...</div>}>
-      <Context.Provider value={new AppContext()}>
-        <RouterProvider router={router} />
-      </Context.Provider>
+    <Suspense fallback={<Spinner />}>
+      <MarsProvider>
+        <Context.Provider value={new AppContext()}>
+          <RouterProvider router={router} />
+        </Context.Provider>
+      </MarsProvider>
     </Suspense>
   )
 }
