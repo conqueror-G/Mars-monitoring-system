@@ -5,31 +5,64 @@ import { AiOutlineEye, AiFillEye } from 'react-icons/ai'
 
 import Button from 'src/components/button'
 
-import { wrapperCss, forgetButtonCss, visiblePwIconCss } from './style'
-
+// useForm Type
 export type Inputs = {
   userId: string
   userPw: string
   singleErrorInput: string
 }
 
+// Password 보여주기 아이콘 CSS
+const visiblePwIconCss = css({
+  position: 'absolute',
+  top: '50%',
+  left: '93%',
+  transform: 'translate(-50%, -50%)',
+  fontSize: '1.6rem',
+  cursor: 'pointer',
+})
+
+// Password 찾기 버튼 오른쪽 정렬 CSS
+const flexAlignButtonCss = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  width: '100%',
+  marginTop: '1.5rem',
+}
+
+// input 공통 CSS
+const inputCss = {
+  get common() {
+    const theme = useTheme()
+
+    return {
+      padding: '0.8rem 0.5rem',
+      borderRadius: '0.25rem',
+      backgroundColor: theme.color.Btn.btnActionSelect,
+    }
+  },
+}
+
 export const SignPage = observer(() => {
   const theme = useTheme()
+
+  // useForm
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
 
+  // Local Store
   const state = useLocalObservable(() => ({
-    // password visible Icon 상태값
+    // Password visible Icon 상태값
     visibilifyStatus: false as boolean,
 
-    // password Input type 초기값
+    // Password Input type 초기값
     visibilityType: 'password' as string,
 
     // 유효성 검사 중일 때, 스타일링 변화
-    validationInputCss() {
+    get validationInputCss() {
       if (typeof errors.userPw === 'undefined') {
         return flexAlignButtonCss
       }
@@ -37,7 +70,7 @@ export const SignPage = observer(() => {
     },
 
     // visibilifyStatus에 따라 아이콘을 변경하는 함수
-    changeIcon() {
+    get changeIcon() {
       if (state.visibilifyStatus) {
         return (
           <AiFillEye onClick={() => state.handleIconToggler('password')} css={visiblePwIconCss} />
@@ -53,38 +86,14 @@ export const SignPage = observer(() => {
     },
   }))
 
+  // event Handler - submit
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
-
-  // input 공통 CSS
-  const inputCommonCss = css({
-    padding: '0.8rem 0.5rem',
-    borderRadius: '0.25rem',
-    backgroundColor: theme.color.Btn.btnActionSelect,
-  })
-
-  // password 찾기 버튼 오른쪽 정렬 CSS
-  const flexAlignButtonCss = css({
-    display: 'flex',
-    justifyContent: 'flex-end',
-    width: '100%',
-    marginTop: '1.5rem',
-  })
-
-  // 제출 버튼 CSS
-  const signButtonCss = css({
-    display: 'block',
-    width: '100%',
-    backgroundColor: theme.color.Primary,
-    fontWeight: 600,
-    fontSize: '1.25rem',
-    color: '#fff',
-  })
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <h1 css={{ fontSize: '2rem', marginBottom: '2rem' }}>Sign In</h1>
 
-      <div css={wrapperCss.input}>
+      <div css={{ display: 'flex', flexDirection: 'column' }}>
         <label htmlFor="inputId" css={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>
           ID
         </label>
@@ -93,8 +102,8 @@ export const SignPage = observer(() => {
         <input
           id="inputId"
           type="text"
-          css={inputCommonCss}
-          {...register('userId', { required: 'this', minLength: 5 })}
+          css={inputCss.common}
+          {...register('userId', { required: true, minLength: 5 })}
         />
 
         {/* ID 입력 유효성 검사 */}
@@ -111,17 +120,17 @@ export const SignPage = observer(() => {
           Password
         </label>
 
-        <div css={wrapperCss.label}>
+        <div css={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
           {/* password 입력 */}
           <input
             id="passwordId"
             type={state.visibilityType}
-            css={inputCommonCss}
-            {...register('userPw', { required: 'where', minLength: 9 })}
+            css={inputCss.common}
+            {...register('userPw', { required: true, minLength: 9 })}
           />
 
           {/* password 표시 아이콘 */}
-          {state.changeIcon()}
+          {state.changeIcon}
         </div>
 
         {/* PW 입력 유효성 검사 */}
@@ -131,12 +140,35 @@ export const SignPage = observer(() => {
       </div>
 
       {/* password 찾기 */}
-      <div css={state.validationInputCss()}>
-        <Button css={forgetButtonCss}>Forget Password?</Button>
+      <div css={state.validationInputCss}>
+        <Button
+          css={{
+            display: 'block',
+            padding: 0,
+            border: 0,
+            marginBottom: '1.5rem',
+            backgroundColor: '#fff',
+            fontSize: '1.1rem',
+            fontWeight: 500,
+          }}
+        >
+          Forget Password?
+        </Button>
       </div>
 
       {/* 제출 */}
-      <Button css={signButtonCss}>Sign in</Button>
+      <Button
+        css={{
+          display: 'block',
+          width: '100%',
+          backgroundColor: theme.color.Primary,
+          fontWeight: 600,
+          fontSize: '1.25rem',
+          color: '#fff',
+        }}
+      >
+        Sign in
+      </Button>
     </form>
   )
 })
